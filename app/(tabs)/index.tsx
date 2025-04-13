@@ -3,6 +3,8 @@ import { FontAwesome, Ionicons, Feather, MaterialIcons } from '@expo/vector-icon
 import React from 'react';
 import { router } from 'expo-router';
 
+import AppLogo from '~/assets/app_logo.png';
+
 export default function Home() {
   return (
     <View className="flex-1 bg-white px-4 pt-6 pb-2">
@@ -13,7 +15,10 @@ export default function Home() {
         }}>
           <Ionicons name="options-outline" size={20} color="white" />
         </TouchableOpacity>
-        <Text className="text-black font-bold text-lg">Mockaccino</Text>
+        <View className='flex flex-row items-center'>
+            <Image source={AppLogo} className="w-7 h-7 mr-2" />
+            <Text className="text-black font-bold text-lg">Mockaccino</Text>
+        </View>
         <TouchableOpacity className="relative" onPress={() => {
             router.push('/notifications')
         }}>

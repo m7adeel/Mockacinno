@@ -1,8 +1,17 @@
 import { View, Text, TextInput, ScrollView, Image, Pressable, SafeAreaView, Touchable, TouchableOpacity } from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import React, { useState } from 'react';
 
 export default function EditProfileScreen() {
+    const [name, setName] = useState('Connor Kenway');
+    const [location, setLocation] = useState('London, UK');
+    const [bio, setBio] = useState('Let’s work together to create a seamless user experience using tools such as Figma/FigJam, Miro, Adobe XD, and Trello.');
+    const [currentRole, setCurrentRole] = useState('Animator');
+    const [targetRole, setTargetRole] = useState('UI/UX Designer');
+
+    const [email, setEmail] = useState('abc@gmail.com')
+
     return (
         <SafeAreaView className="flex-1 bg-white">
             {/* Header */}
@@ -17,7 +26,7 @@ export default function EditProfileScreen() {
                 <View className="items-center mb-6">
                     <View className="relative">
                         <Image
-                            source={{ uri: 'https://images.unsplash.com/photo-1603415526960-fb8f6e35dfc7?auto=format&fit=crop&w=800&q=80' }}
+                            source={{ uri: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }}
                             className="w-28 h-28 rounded-full"
                         />
                         <Pressable className="absolute bottom-0 right-0 bg-white rounded-full p-2 border border-gray-300">
@@ -33,6 +42,8 @@ export default function EditProfileScreen() {
                         <TextInput
                             className="border border-gray-300 rounded-full px-4 py-2 text-black"
                             placeholder="Edward Kenway"
+                            defaultValue={name}
+                            onChangeText={setName}
                         />
                     </View>
 
@@ -41,6 +52,8 @@ export default function EditProfileScreen() {
                         <TextInput
                             className="border border-gray-300 rounded-full px-4 py-2 text-black"
                             placeholder="user@gmail.com"
+                            defaultValue={email}
+                            onChangeText={setEmail}
                         />
                     </View>
 
@@ -49,6 +62,8 @@ export default function EditProfileScreen() {
                         <TextInput
                             className="border border-gray-300 rounded-full px-4 py-2 text-black"
                             placeholder="London, UK"
+                            defaultValue={location}
+                            onChangeText={setLocation}
                         />
                     </View>
 
@@ -68,6 +83,8 @@ export default function EditProfileScreen() {
                         <TextInput
                             className="border border-gray-300 rounded-full px-4 py-2 text-black"
                             placeholder="Animator"
+                            defaultValue={currentRole}
+                            onChangeText={setCurrentRole}
                         />
                     </View>
 
@@ -76,6 +93,8 @@ export default function EditProfileScreen() {
                         <TextInput
                             className="border border-gray-300 rounded-full px-4 py-2 text-black"
                             placeholder="UI/UX Designer"
+                            defaultValue={targetRole}
+                            onChangeText={setTargetRole}
                         />
                     </View>
 

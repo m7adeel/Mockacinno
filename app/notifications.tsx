@@ -10,7 +10,7 @@ const notifications = [
     name: 'Tyrion',
     message: 'Hello Edward! I would like to ask ...',
     time: '5 mins ago',
-    // image: require('./assets/tyrion.jpg'),
+    image: 'https://randomuser.me/api/portraits/men/59.jpg',
     unread: true,
   },
   {
@@ -18,7 +18,7 @@ const notifications = [
     type: 'match',
     name: 'Tyrion',
     time: '21 mins ago',
-    // image: require('./assets/tyrion.jpg'),
+    image: 'https://randomuser.me/api/portraits/men/59.jpg',
     unread: true,
   },
   {
@@ -26,7 +26,7 @@ const notifications = [
     type: 'match',
     name: 'Jon Snow',
     time: '2 hrs ago',
-    // image: require('./assets/jon.jpg'),
+    image: 'https://randomuser.me/api/portraits/men/78.jpg',
     unread: false,
   },
   {
@@ -34,7 +34,7 @@ const notifications = [
     type: 'match',
     name: 'Arya Stark',
     time: '4 hrs ago',
-    // image: require('./assets/arya.jpg'),
+    image: 'https://randomuser.me/api/portraits/women/78.jpg',
     unread: false,
   },
   {
@@ -42,7 +42,7 @@ const notifications = [
     type: 'match',
     name: 'Stannis Baratheon',
     time: '3 days ago',
-    // image: require('./assets/stannis.jpg'),
+    image: 'https://randomuser.me/api/portraits/men/72.jpg',
     unread: false,
   },
   {
@@ -51,7 +51,7 @@ const notifications = [
     name: 'Robb',
     message: 'Can you send the link to your po..',
     time: '5 days ago',
-    // image: require('./assets/robb.jpg'),
+    image: 'https://randomuser.me/api/portraits/men/60.jpg',
     unread: true,
   },
 ];
@@ -79,7 +79,7 @@ const NotificationScreen = () => {
               <Text className="text-lg font-semibold text-black mt-8 mb-2">This Week</Text>
             )}
             <View className="flex-row items-start py-4 border-b border-gray-100">
-              <Image source={item.image} className="w-12 h-12 rounded-full mr-4" />
+              <Image src={item.image} className="w-12 h-12 rounded-full mr-4" />
               <View className="flex-1">
                 <Text className="text-sm text-black font-semibold">
                   {item.name}{' '}

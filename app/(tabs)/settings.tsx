@@ -1,7 +1,9 @@
-import { View, Text, Switch, Pressable, Share, ScrollView } from 'react-native';
+import { View, Text, Switch, Pressable, Share, ScrollView, Image } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useState } from 'react';
 import useAuthStore from '~/store/authStore';
+
+import AppLogo from '~/assets/app_logo.png';
 
 export default function SettingsScreen() {
   const [visibility, setVisibility] = useState(true);
@@ -80,7 +82,7 @@ export default function SettingsScreen() {
 
       {/* VERSION */}
       <View className="items-center py-8">
-        <Text className="text-3xl mb-1">☕</Text>
+        <Image source={AppLogo} className='w-10 h-10'/>
         <Text className="text-black font-semibold">MOCKACCINO</Text>
         <Text className="text-gray-500">Version 1.1.2</Text>
       </View>
