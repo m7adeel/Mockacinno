@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 import { auth } from '../firebase/config'
-import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth";
 
 export interface AuthState {
     user: any;
@@ -9,6 +9,7 @@ export interface AuthState {
     clearUser: () => void;
     login: (email: String, password: String) => void;
     logout: () => void;
+    signUpWithEmailAndPassword: (email: String, password: String) => void;
 }
 
 const useAuthStore = create<AuthState>((set) => ({
@@ -32,7 +33,16 @@ const useAuthStore = create<AuthState>((set) => ({
         } catch (error) {
             console.error("Logout error:", error);
         }
-    }
+    },
+
+    signUpWithEmailAndPassword: async (email: String, password: String) => {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email as string, password as string);
+            set({ user: userCredential.user });
+        } catch (error) {
+            console.error("Sign in error:", error);
+        }
+    },
 }));
 
 // Listen to auth state changes

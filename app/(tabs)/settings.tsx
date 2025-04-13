@@ -1,11 +1,14 @@
 import { View, Text, Switch, Pressable, Share, ScrollView } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useState } from 'react';
+import useAuthStore from '~/store/authStore';
 
 export default function SettingsScreen() {
   const [visibility, setVisibility] = useState(true);
   const [notifications, setNotifications] = useState(true);
   const inviteCode = "9200223398";
+
+  const { logout } = useAuthStore();
 
   const handleShare = async () => {
     try {
@@ -71,7 +74,7 @@ export default function SettingsScreen() {
       </View>
 
       {/* LOGOUT */}
-      <Pressable className="bg-white py-4 border-b border-gray-200">
+      <Pressable className="bg-white py-4 border-b border-gray-200" onPress={logout}>
         <Text className="text-black text-base">Logout</Text>
       </Pressable>
 

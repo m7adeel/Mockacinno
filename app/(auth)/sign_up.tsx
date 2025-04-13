@@ -12,10 +12,21 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
+import useAuthStore from '~/store/authStore';
+
 export default function SignUpScreen() {
     const [secureText, setSecureText] = useState(true);
     const [secureConfirm, setSecureConfirm] = useState(true);
     const [agree, setAgree] = useState(false);
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [name, setName] = useState('');
+    const [city, setCity] = useState('');
+    const [profileImage, setProfileImage] = useState(null);
+
+    const { signUpWithEmailAndPassword } = useAuthStore();
 
     return (
         <ScrollView className="flex-1 bg-[#F5F5F5] px-6 pt-12">
@@ -43,20 +54,28 @@ export default function SignUpScreen() {
             <View className="space-y-4">
                 <TextInput
                     placeholder="Full Name"
+                    value={name}
+                    onChangeText={setName}
                     className="bg-white px-4 py-3 rounded-full shadow my-3"
                 />
                 <TextInput
                     placeholder="Email"
+                    value={email}
+                    onChangeText={setEmail}
                     className="bg-white px-4 py-3 rounded-full shadow my-3"
                     keyboardType="email-address"
                 />
                 <TextInput
                     placeholder="City"
+                    value={city}
+                    onChangeText={setCity}
                     className="bg-white px-4 py-3 rounded-full shadow my-3"
                 />
                 <View className="my-3">
                     <TextInput
                         placeholder="Password"
+                        value={password}
+                        onChangeText={setPassword}
                         secureTextEntry={secureText}
                         className="bg-white px-4 py-3 rounded-full shadow pr-10"
                     />
@@ -74,6 +93,8 @@ export default function SignUpScreen() {
                 <View className="my-3">
                     <TextInput
                         placeholder="Confirm Password"
+                        value={confirmPassword}
+                        onChangeText={setConfirmPassword}
                         secureTextEntry={secureConfirm}
                         className="bg-white px-4 py-3 rounded-full shadow pr-10"
                     />
@@ -113,7 +134,18 @@ export default function SignUpScreen() {
             <Pressable
                 onPress={() => {
                     if (!agree) return alert('Please accept the terms first.');
-                    router.push('/(onboarding)/current_profession');
+
+                    if (!email || !password) {
+                        return alert('Please fill in all fields.');
+                    }
+
+                    if (password !== confirmPassword) {
+                        return alert('Passwords do not match.');
+                    }
+
+                    signUpWithEmailAndPassword(email, password);
+
+                    // router.push('/(onboarding)/current_profession');
                 }}
                 className="bg-[#2B32F3] py-4 mt-8 rounded-full items-center shadow"
             >
