@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 import useUserStore from '~/store/userStore';
 import useAuthStore from '~/store/authStore';
 
+import Animated from 'react-native-reanimated';
+
 export default function EditProfileScreen() {
     const { userData, updateUserData } = useUserStore();
     const { user } = useAuthStore();
@@ -34,9 +36,10 @@ export default function EditProfileScreen() {
                 {/* Profile Image */}
                 <View className="items-center mb-6">
                     <View className="relative">
-                        <Image
+                        <Animated.Image
                             source={{ uri: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }}
                             className="w-28 h-28 rounded-full"
+                            sharedTransitionTag='profileImage-profileScreen'
                         />
                         <Pressable className="absolute bottom-0 right-0 bg-white rounded-full p-2 border border-gray-300">
                             <Feather name="edit-3" size={16} color="black" />

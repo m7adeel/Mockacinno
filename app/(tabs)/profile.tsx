@@ -2,6 +2,8 @@ import { View, Text, Image, Pressable, ScrollView, TouchableOpacity } from 'reac
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
+import Animated from 'react-native-reanimated';
+
 export default function ProfileScreen() {
     return (
         <ScrollView className="flex-1 bg-white">
@@ -20,9 +22,10 @@ export default function ProfileScreen() {
                     <Text className="text-white text-lg font-bold">Connor Kenway</Text>
                     <Text className="text-white text-sm">📍 London, UK</Text>
                     <View className="mt-4 w-28 h-28 rounded-full border-4 border-white overflow-hidden">
-                        <Image
+                        <Animated.Image
                             source={{ uri: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }}
-                            className="w-full h-full"
+                            className="w-full h-full rounded-full"
+                            sharedTransitionTag='profileImage-profileScreen'
                         />
                     </View>
                 </View>
