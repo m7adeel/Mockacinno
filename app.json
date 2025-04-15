@@ -3,39 +3,40 @@
     "name": "mockacinno",
     "slug": "mockacinno",
     "version": "1.0.0",
-
     "scheme": "mockacinno",
     "web": {
       "bundler": "metro",
       "output": "static",
       "favicon": "./assets/app_logo.png"
     },
-    "plugins": ["expo-router"],
+    "plugins": [
+      "expo-router"
+    ],
     "experiments": {
       "typedRoutes": true,
-
       "tsconfigPaths": true
     },
-
     "orientation": "portrait",
     "icon": "./assets/app_logo.png",
-
     "userInterfaceStyle": "light",
-
     "splash": {
       "image": "./assets/Splash_Screen.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.fireblaze1234.mockacinno"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/app_logo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.fireblaze1234.mockacinno"
     }
   }
 }

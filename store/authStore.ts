@@ -2,14 +2,15 @@ import { create } from "zustand";
 
 import { auth } from '../firebase/config'
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth";
+import useUserStore from "./userStore";
 
 export interface AuthState {
     user: any;
     setUser: (user: any) => void;
     clearUser: () => void;
-    login: (email: String, password: String) => void;
+    login: (email: string, password: string) => void;
     logout: () => void;
-    signUpWithEmailAndPassword: (email: String, password: String) => void;
+    signUpWithEmailAndPassword: (email: string, password: string) => void;
 }
 
 const useAuthStore = create<AuthState>((set) => ({
@@ -17,9 +18,9 @@ const useAuthStore = create<AuthState>((set) => ({
     setUser: (user) => set({ user }),
     clearUser: () => set({ user: null }),
 
-    login: async (email: String, password: String) => {
+    login: async (email, password) => {
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email as string, password as string);
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
             set({ user: userCredential.user });
         } catch (error) {
             console.error("Login error:", error);
@@ -35,10 +36,13 @@ const useAuthStore = create<AuthState>((set) => ({
         }
     },
 
-    signUpWithEmailAndPassword: async (email: String, password: String) => {
+    signUpWithEmailAndPassword: async (email, password) => {
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email as string, password as string);
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             set({ user: userCredential.user });
+
+            // Create user data in Firestore
+            useUserStore.getState().createUserData(userCredential.user.uid);
         } catch (error) {
             console.error("Sign in error:", error);
         }
@@ -49,6 +53,11 @@ const useAuthStore = create<AuthState>((set) => ({
 onAuthStateChanged(auth, (user) => {
     if (user) {
         useAuthStore.getState().setUser(user);
+
+        // Get the User Data from Firestore
+        console.log("Auth state changed: User is signed in:", user);
+        // Fetch user data from Firestore
+        useUserStore.getState().getUserData(user.uid);
     } else {
         useAuthStore.getState().clearUser();
     }

@@ -7,7 +7,7 @@ export default function ProfileScreen() {
         <ScrollView className="flex-1 bg-white">
             {/* Header */}
             <View className="bg-indigo-500 pt-12 pb-16 px-4 rounded-b-3xl relative">
-                <TouchableOpacity className="absolute top-14 right-4" onPress={() => {
+                <TouchableOpacity className="absolute top-14 right-4 z-10" onPress={() => {
                     router.push('/edit_profile')
                 }}>
                     <Ionicons

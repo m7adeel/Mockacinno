@@ -1,16 +1,25 @@
-import { View, Text, TextInput, ScrollView, Image, Pressable, SafeAreaView, Touchable, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, ScrollView, Image, Pressable, SafeAreaView, Touchable, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
+import useUserStore from '~/store/userStore';
+import useAuthStore from '~/store/authStore';
 
 export default function EditProfileScreen() {
-    const [name, setName] = useState('Connor Kenway');
-    const [location, setLocation] = useState('London, UK');
-    const [bio, setBio] = useState('Let’s work together to create a seamless user experience using tools such as Figma/FigJam, Miro, Adobe XD, and Trello.');
-    const [currentRole, setCurrentRole] = useState('Animator');
-    const [targetRole, setTargetRole] = useState('UI/UX Designer');
+    const { userData, updateUserData } = useUserStore();
+    const { user } = useAuthStore();
 
-    const [email, setEmail] = useState('abc@gmail.com')
+    if (!userData) {
+        return <View className='flex-1 justify-center'><ActivityIndicator size="large" color="#0000ff" /></View>;
+    }
+
+    const [name, setName] = useState(userData.name || "");
+    const [location, setLocation] = useState(userData.city || "");
+    const [bio, setBio] = useState(userData.bio || "");
+    const [currentRole, setCurrentRole] = useState(userData.currentRole || "");
+    const [targetRole, setTargetRole] = useState(userData.targetRole || "");
+
+    const [email, setEmail] = useState(user.email)
 
     return (
         <SafeAreaView className="flex-1 bg-white">
@@ -74,7 +83,8 @@ export default function EditProfileScreen() {
                             numberOfLines={4}
                             className="border border-gray-300 rounded-xl px-4 py-2 text-black"
                             placeholder="Tell us about yourself..."
-                            defaultValue="Let’s work together to create a seamless user experience using tools such as Figma/FigJam, Miro, Adobe XD, and Trello."
+                            defaultValue={bio}
+                            onChangeText={setBio}
                         />
                     </View>
 
@@ -134,7 +144,18 @@ export default function EditProfileScreen() {
                 </View>
 
                 {/* Save Button */}
-                <Pressable className="mt-8 mb-10 bg-blue-600 py-3 rounded-full items-center justify-center shadow-md">
+                <Pressable className="mt-8 mb-10 bg-blue-600 py-3 rounded-full items-center justify-center shadow-md" onPress={() => {
+                    const updatedData = {
+                        ...userData,
+                        name,
+                        city: location,
+                        bio,
+                        currentRole,
+                        targetRole,
+                    };
+                    updateUserData(updatedData);
+                    router.back();
+                }}>
                     <Text className="text-white font-bold text-base">Save Changes</Text>
                 </Pressable>
             </ScrollView>
