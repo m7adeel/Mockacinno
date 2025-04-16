@@ -3,12 +3,6 @@ import useAuthStore from "./authStore";
 
 type ChatUser = {
     id: string;
-    name: string;
-    avatarUrl: string;
-    status: string; // e.g., "online", "offline", "busy"
-    lastSeen: Date; // last seen time
-    isTyping: boolean; // typing status
-    unreadMessages: number; // count of unread messages
 }
 
 type ChatMessage = {
@@ -19,6 +13,19 @@ type ChatMessage = {
 }
 
 type ChatState = {
+    id: string;
+    participants: ChatUser[];
+    messages: ChatMessage[];
+}
+
+type ChatStoreType = {
+    userChats: ChatState[];
+
+    addUserToChat: () => void;
+    sendMessageToChat: () => void;
+}
+
+type ChatStateType = {
     users: ChatUser[];
     messages: ChatMessage[];
     addUser: (user: ChatUser) => void;
@@ -27,10 +34,14 @@ type ChatState = {
     receiveMessage: (message: ChatMessage) => void;
 }
 
-const useChatStore = create<ChatState>((set) => ({
+const useChatStore = create<ChatStateType>((set) => ({
     users: [],
     messages: [],
-    addUser: (user) => set((state) => ({ users: [...state.users, user] })),
+    addUser: (user) => set((state) => { 
+        // Check if the user id already exists
+
+        return { users: [...state.users, user] }
+    }),
     removeUser: (userId) => set((state) => ({ users: state.users.filter(user => user.id !== userId) })),
     sendMessage: (message) => set((state) => ({ messages: [...state.messages, message] })),
     receiveMessage: (message) => set((state) => ({ messages: [...state.messages, message] })),

@@ -8,6 +8,7 @@ import {
   FlatList,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 
 const chats = [
   {
@@ -77,7 +78,9 @@ export default function Chat() {
   const [tab, setTab] = useState<'Chats' | 'Likes'>('Chats');
 
   const renderChatItem = ({ item }) => (
-    <Pressable className="flex-row items-center px-4 py-3 border-b border-gray-200">
+    <Pressable className="flex-row items-center px-4 py-3 border-b border-gray-200" onPress={() => {
+      router.push('/chat_screen');
+    }}>
       <Image source={{ uri: item.avatar }} className="w-12 h-12 rounded-full mr-4" />
       <View className="flex-1">
         <Text className="font-semibold text-black">{item.name}</Text>
